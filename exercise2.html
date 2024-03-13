@@ -36,8 +36,8 @@
                 <label for="email">Email:</label>
                 <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
             </div>
-            <button class="btn btn-success px-5 mr-1" type="button" class="btn btn-default">Add</button>
-            <button class="btn btn-outline-primary px-5" type="button" class="btn btn-default">Reset</button>
+            <button class="btn btn-success px-5 mr-1" id="add" type="button" class="btn btn-default">Add</button>
+            <button class="btn btn-outline-primary px-5" id="reset" type="reset" class="btn btn-default">Reset</button>
         </form>
 
         <br>
@@ -72,7 +72,7 @@
         inputFirstName.addEventListener('focus', function () {
             const errMess = inputFirstName.parentElement.querySelector('div.errMess');
             if (errMess != null) {
-                errMess.style.display = 'none';
+                errMess.parentElement.removeChild(errMess);
             }
         });
         inputFirstName.addEventListener('blur', function () {
@@ -84,7 +84,7 @@
                 errMess.style.color = 'red';
             }
             else {
-                errMess.style.display = 'none';
+                errMess.parentElement.removeChild(errMess);
             }
 
         })
@@ -93,7 +93,7 @@
         inputLastName.addEventListener('focus', function () {
             const errMess = inputLastName.parentElement.querySelector('div.errMess');
             if (errMess != null) {
-                errMess.style.display = 'none';
+                errMess.parentElement.removeChild(errMess);
             }
         });
         inputLastName.addEventListener('blur', function () {
@@ -105,35 +105,68 @@
                 errMess.style.color = 'red';
             }
             else {
-                errMess.style.display = 'none';
+                errMess.parentElement.removeChild(errMess);
             }
 
         })
         //email
         let inputEmail = document.querySelector("input#email");
         inputEmail.addEventListener('blur', function () {
-            let regex = /\w+@\w+.\w+/;
+            let regex = /\w+@\w+\.\w+/;
             let email = inputEmail.value;
-            const err = document.createElement("div");
-            err.className = "err";
-            err.style.color='red';
-            inputEmail.parentNode.insertBefore(err, inputEmail.nextSibling);
+            const errMess = document.createElement("div");
+            errMess.className = "errMess";
+            errMess.style.color = 'red';
+            inputEmail.parentNode.insertBefore(errMess, inputEmail.nextSibling);
             if (email === '') {
-                err.innerHTML = 'Please enter your email.';
+                errMess.innerHTML = 'Please enter your email.';
             }
             else if (!regex.test(email)) {
-                err.innerHTML = 'Your email is not correct.';
+                errMess.innerHTML = 'Your email is not correct.';
             }
-            else{
-                err.style.display='none';
+            else {
+                errMess.parentElement.removeChild(errMess);
             }
         });
-        inputEmail.addEventListener('focus',function(){
-            let err =inputEmail.parentElement.querySelector('div.err');
-            if (err!=null){
-                err.style.display='none';
+        inputEmail.addEventListener('focus', function () {
+            let errMess = inputEmail.parentElement.querySelector('div.errMess');
+            if (errMess != null) {
+                errMess.parentElement.removeChild(errMess);
             }
         })
+        //add button
+        let addButton = document.querySelector("button#add");
+        addButton.addEventListener('click', function () {
+            if (document.querySelector("div.errMess") != null || inputFirstName.value === '' || inputLastName.value === '' || inputEmail.value === '') {
+                alert("Please fill all field");
+            }
+            else {
+                const trNew = document.createElement('tr');
+                const tdFirstName = document.createElement('td');
+                const tdLastName = document.createElement('td');
+                const tdEmail = document.createElement('td');
+                tdFirstName.innerHTML = inputFirstName.value;
+                tdLastName.innerHTML = inputLastName.value;
+                tdEmail.innerHTML = inputEmail.value;
+                trNew.appendChild(tdFirstName);
+                trNew.appendChild(tdLastName);
+                trNew.appendChild(tdEmail);
+                const tdDel = document.querySelector('td > button.btn.btn-danger.btn-sm').parentNode.cloneNode(true);
+                trNew.appendChild(tdDel);
+                document.querySelector('tbody').appendChild(trNew);
+                addEventDel();
+            }
+        })
+        addEventDel();
+        //delete   button
+        function addEventDel() {
+            let buttonDel = document.querySelectorAll('td>button.btn.btn-danger.btn-sm');
+            buttonDel.forEach((value, index, arr) => {
+                value.addEventListener('click', function () {
+                    value.parentElement.parentElement.remove();
+                })
+            });
+        }
     </script>
 </body>
 
