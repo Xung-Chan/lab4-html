@@ -151,7 +151,13 @@
                 trNew.appendChild(tdFirstName);
                 trNew.appendChild(tdLastName);
                 trNew.appendChild(tdEmail);
-                const tdDel = document.querySelector('td > button.btn.btn-danger.btn-sm').parentNode.cloneNode(true);
+                const buttonDel = document.createElement('button');
+                buttonDel.className = 'btn btn-danger btn-sm';
+                buttonDel.innerHTML='Delete';
+                const tdDel = document.createElement('td');
+                tdDel.appendChild(buttonDel);
+                tdDel.append(buttonDel);
+                //const tdDel = document.querySelector('td > button.btn.btn-danger.btn-sm').parentNode.cloneNode(true);
                 trNew.appendChild(tdDel);
                 document.querySelector('tbody').appendChild(trNew);
                 addEventDel();
