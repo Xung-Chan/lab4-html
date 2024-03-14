@@ -2,120 +2,118 @@
 <html lang="en">
 
 <head>
-    <title>JS DOM Manipulations</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <title>JS DOM Manipulations</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
 <body>
+  <style></style>
 
-    <style>
-
-    </style>
-
-
-    <div class="container">
-
-        <div class="row justify-content-center">
-            <div class="col-md-8 myform border rounded p-4 mt-5">
-                <div class="form-group">
-                    <label for="message">Text content:</label>
-                    <input type="text" class="form-control" id="message" placeholder="Enter new text" name="message">
-                </div>
-                <div class="form-group">
-                    <label for="color">Text color:</label>
-                    <select name="color" id="color" class="custom-select">
-                        <option value="black">Black</option>
-                        <option value="red">Red</option>
-                        <option value="green">Green</option>
-                        <option value="blue">Blue</option>
-                    </select>
-                </div>
-                <div class="form-group">
-
-                    <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="bold">
-                        <label class="custom-control-label" for="bold">Bold</label>
-                    </div>
-
-                    <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="italic">
-                        <label class="custom-control-label" for="italic">Italic</label>
-                    </div>
-
-                    <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="underline">
-                        <label class="custom-control-label" for="underline">Underline</label>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-success">Restore Default</button>
-            </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 myform border rounded p-4 mt-5">
+        <div class="form-group">
+          <label for="message">Text content:</label>
+          <input type="text" class="form-control" id="message" placeholder="Enter new text" name="message" />
         </div>
-        <div class="row justify-content-center mt-3">
-            <div class="col-md-8 alert alert-success text-center" id="output">This text will be changed immediately when typing new
-                text.</div>
+        <div class="form-group">
+          <label for="color">Text color:</label>
+          <select name="color" id="color" class="custom-select">
+            <option value="black">Black</option>
+            <option value="red">Red</option>
+            <option value="green" selected>Green</option>
+            <option value="blue">Blue</option>
+          </select>
         </div>
+        <div class="form-group">
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="bold" />
+            <label class="custom-control-label" for="bold">Bold</label>
+          </div>
 
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="italic" />
+            <label class="custom-control-label" for="italic">Italic</label>
+          </div>
+
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="underline" />
+            <label class="custom-control-label" for="underline">Underline</label>
+          </div>
+        </div>
+        <button type="button" class="btn btn-success">Restore Default</button>
+      </div>
     </div>
-    <script>
-        const output = document.querySelector('div#output');
-        let inputMessage =document.querySelector('input#message');
-        inputMessage.addEventListener('input',type);
-        function type(){
-            if (inputMessage.value === ''){
-                output.innerHTML = 'This text will be changed immediately when typing new text.';
-            }
-            else{
+    <div class="row justify-content-center mt-3">
+      <div class="col-md-8 alert alert-success text-center" id="output">
+        This text will be changed immediately when typing new text.
+      </div>
+    </div>
+  </div>
+  <script>
+    const output = document.querySelector("div#output");
+    let inputMessage = document.querySelector("input#message");
+    inputMessage.addEventListener("input", type);
+    function type() {
+      if (inputMessage.value === "") {
+        output.innerHTML =
+          "This text will be changed immediately when typing new text.";
+      } else {
+        output.innerHTML = inputMessage.value;
+      }
+    }
 
-                output.innerHTML= inputMessage.value;
-            }
-            
-        }
-        
-        let inputSelect = document.querySelector('select#color');
-        inputSelect.addEventListener('change',()=>{
-            output.style.color=inputSelect.value;
-        });
-        let inputBold = document.querySelector('input#bold');
-        inputBold.addEventListener('change',()=>{
-            if (inputBold.checked){
-                output.style.fontWeight = 'bold';
-            }
-            else{
-                output.style.fontWeight = 'normal';
-            }
-        });
-        
-        let inputItalic = document.querySelector('input#italic');
-        inputItalic.addEventListener('change',()=>{
-            if (inputItalic.checked){
-                output.style.fontStyle = 'italic';
-            }
-            else{
-                output.style.fontStyle = 'normal';
-            }
-        });
-        let inputUnderline = document.querySelector('input#underline');
-        inputUnderline.addEventListener('change',()=>{
-            if (inputUnderline.checked){
-                output.style.textDecoration = 'underline';
-            }
-            else{
-                output.style.textDecoration = 'none';
-            }
-        });
-
-        let buttonReset = document.querySelector('button');
-        buttonReset.addEventListener('click',()=>{
-            inputMessage.value='';
-            type();
-            inputSelect.value='black';
-        });
-    </script>
+    let inputSelect = document.querySelector("select#color");
+    inputSelect.addEventListener("change", color);
+    function color() {
+      output.style.color = inputSelect.value;
+    }
+    let inputBold = document.querySelector("input#bold");
+    inputBold.addEventListener("change", bold);
+    function bold() {
+      if (inputBold.checked) {
+        output.style.fontWeight = "bold";
+      } else {
+        output.style.fontWeight = "normal";
+      }
+    }
+    let inputItalic = document.querySelector("input#italic");
+    inputItalic.addEventListener("change", italic);
+    function italic() {
+      if (inputItalic.checked) {
+        output.style.fontStyle = "italic";
+      } else {
+        output.style.fontStyle = "normal";
+      }
+    }
+    let inputUnderline = document.querySelector("input#underline");
+    inputUnderline.addEventListener("change", underline);
+    function underline() {
+      if (inputUnderline.checked) {
+        output.style.textDecoration = "underline";
+      } else {
+        output.style.textDecoration = "none";
+      }
+    }
+    let buttonReset = document.querySelector("button");
+    buttonReset.addEventListener("click", () => {
+      inputMessage.value = "";
+      inputSelect.value = "green";
+      inputBold.checked = false;
+      inputItalic.checked = false;
+      inputUnderline.checked = false;
+      type();
+      color();
+      bold();
+      italic();
+      underline();
+    });
+  </script>
 </body>
 
 </html>
